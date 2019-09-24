@@ -28,16 +28,7 @@ public class NoteServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-        
-        //String link = "<a href=\"note?edit\">edit</a>";
-                //"<a href=\"editnote\">edit</a>";
-        //request.setAttribute ("whatever3", link);
-
-        
-        
-        
-        //request.getAttribute("edit");
-        
+               
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         // to read files
         BufferedReader br = new BufferedReader(new FileReader(new File(path)));
@@ -49,10 +40,9 @@ public class NoteServlet extends HttpServlet
        
         record.setTitle(lineOne);
         record.setContext(lineTwo);
-        
         request.setAttribute("Note", record ); 
         
-      String editNote = request.getParameter("edit");
+        String editNote = request.getParameter("edit");
         //The edit link can be written as <a href="note?edit"> 
         //and the edit parameter can be used to determine which JSP to display.
         if (editNote == null)
@@ -66,8 +56,8 @@ public class NoteServlet extends HttpServlet
                .forward(request, response);
         }
 
-               br.close();
-        //request.setAttribute("edit", "one"); 
+        br.close();
+
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp")
                 .forward(request, response);
  
@@ -77,7 +67,7 @@ public class NoteServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-       //request.setAttribute("edit", "one"); 
+        
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
@@ -89,14 +79,12 @@ public class NoteServlet extends HttpServlet
         pw.println(secondText);
         pw.close();
 
-        //Note record = new Note ();
-        //record = 
         Note record = new Note();
         record.setTitle(firstText);
         record.setContext(secondText);
         request.setAttribute("Note", record );
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
-        
+       
     }
 
 }
