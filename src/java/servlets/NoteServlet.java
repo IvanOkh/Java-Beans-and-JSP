@@ -66,9 +66,11 @@ public class NoteServlet extends HttpServlet
                .forward(request, response);
         }
 
+               br.close();
         //request.setAttribute("edit", "one"); 
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp")
                 .forward(request, response);
+ 
     }
     
     @Override
@@ -89,8 +91,12 @@ public class NoteServlet extends HttpServlet
 
         //Note record = new Note ();
         //record = 
+        Note record = new Note();
+        record.setTitle(firstText);
+        record.setContext(secondText);
+        request.setAttribute("Note", record );
+        getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
         
-        getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
     }
 
 }
